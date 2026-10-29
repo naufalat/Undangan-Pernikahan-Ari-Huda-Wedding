@@ -7,46 +7,51 @@
 const WEDDING = {
   bride: "Prawindukasih Yogiswari",
   groom: "Achmad Huda",
-  dateISO: "2026-11-20T15:30:00+07:00",
-  dateText: "Jumat, 20 November 2026",
-  whatsappNumber: "628155046625"
+  dateISO: "2026-11-20T15:30:00+07:00", // Sesuaikan dengan tanggal pernikahan Anda sendiri
+  dateText: "Jumat, 20 November 2026", // Sesuaikan dengan tanggal pernikahan Anda sendiri
+  whatsappNumber: "628155046625"    // Ganti dengan nomor WhatsApp Anda
 };
 
 const $ = (id) => document.getElementById(id);
-$("coverBride").textContent = WEDDING.bride;
-$("coverGroom").textContent = WEDDING.groom;
-$("brandNames").innerHTML = `${WEDDING.bride.charAt(0)} <span>&</span> ${WEDDING.groom.charAt(0)}`;
-$("coverDate").textContent = WEDDING.dateText;
-$("heroDate").textContent = WEDDING.dateText;
-$("akadDate").textContent = WEDDING.dateText;
-$("receptionDate").textContent = WEDDING.dateText;
-$("brideName").textContent = `${WEDDING.bride}`;
-$("groomName").textContent = `${WEDDING.groom}`;
+
+// Validasi elemen agar tidak membuat script crash jika ID tidak ditemukan di HTML
+if ($("coverBride")) $("coverBride").textContent = WEDDING.bride;
+if ($("coverGroom")) $("coverGroom").textContent = WEDDING.groom;
+if ($("brandNames")) $("brandNames").innerHTML = `${WEDDING.bride.charAt(0)} <span>&</span> ${WEDDING.groom.charAt(0)}`;
+if ($("coverDate")) $("coverDate").textContent = WEDDING.dateText;
+if ($("heroDate")) $("heroDate").textContent = WEDDING.dateText;
+if ($("akadDate")) $("akadDate").textContent = WEDDING.dateText;
+
+// Perbaikan nama lengkap agar murni menggunakan nama Anda berdua tanpa embel-embel template
+if ($("brideName")) $("brideName").textContent = WEDDING.bride;
+if ($("groomName")) $("groomName").textContent = WEDDING.groom;
 
 // Personalize the greeting from a URL such as ?to=Bapak%20Budi
 const params = new URLSearchParams(window.location.search);
 const recipient = params.get("to");
-if (recipient) $("guestName").textContent = recipient.replace(/\+/g, " ").trim();
+if (recipient && $("guestName")) $("guestName").textContent = recipient.replace(/\+/g, " ").trim();
+
+const music = $("weddingMusic");
 
 // Fungsi ketika tombol "Buka Undangan" diklik
-$("openInvitation").addEventListener("click", async () => {
-  $("cover").classList.add("hidden");
-  $("mainContent").classList.remove("hidden");
-  document.body.classList.remove("locked");
-  window.scrollTo({top: 0, behavior: "smooth"});
+if ($("openInvitation")) {
+  $("openInvitation").addEventListener("click", async () => {
+    $("cover").classList.add("hidden");
+    $("mainContent").classList.remove("hidden");
+    document.body.classList.remove("locked");
+    window.scrollTo({top: 0, behavior: "smooth"});
 
-  // Otomatis memutar musik jika elemen audio ada
-  const music = document.getElementById("weddingMusic");
-  if (music) {
-    try {
-      await music.play();
-      const toggle = document.getElementById("musicToggle");
-      if (toggle) toggle.innerHTML = "♫ <span>Musik: ON</span>";
-    } catch (error) {
-      console.log("Musik diblokir oleh kebijakan browser sebelum interaksi penuh.");
+    // Otomatis memutar musik begitu undangan terbuka
+    if (music) {
+      try {
+        await music.play();
+        if ($("musicToggle")) $("musicToggle").innerHTML = "♫ <span>Musik: ON</span>";
+      } catch (error) {
+        console.log("Musik gagal berputar otomatis karena file music.mp3 belum ada atau diblokir browser.");
+      }
     }
-  }
-});
+  });
+}
 
 // Countdown
 const targetDate = new Date(WEDDING.dateISO).getTime();
@@ -56,6 +61,7 @@ function updateCountdown() {
   const hours = Math.floor(diff / 3600000); diff %= 3600000;
   const minutes = Math.floor(diff / 60000); diff %= 60000;
   const seconds = Math.floor(diff / 1000);
+  
   if ($("days")) $("days").textContent = String(days).padStart(3, "0");
   if ($("hours")) $("hours").textContent = String(hours).padStart(2, "0");
   if ($("minutes")) $("minutes").textContent = String(minutes).padStart(2, "0");
@@ -65,21 +71,19 @@ updateCountdown();
 setInterval(updateCountdown, 1000);
 
 // Kontrol manual tombol musik (ON/OFF) di dalam website
-const toggleBtn = document.getElementById("musicToggle");
-if (toggleBtn) {
-  toggleBtn.addEventListener("click", async () => {
-    const music = document.getElementById("weddingMusic");
+if ($("musicToggle")) {
+  $("musicToggle").addEventListener("click", async () => {
     if (!music) return;
     try {
       if (music.paused) {
         await music.play();
-        toggleBtn.innerHTML = "♫ <span>Musik: ON</span>";
+        $("musicToggle").innerHTML = "♫ <span>Musik: ON</span>";
       } else {
         music.pause();
-        toggleBtn.innerHTML = "♫ <span>Musik: OFF</span>";
+        $("musicToggle").innerHTML = "♫ <span>Musik: OFF</span>";
       }
     } catch (error) {
-      alert("Gagal memutar audio.");
+      alert("Tambahkan file music.mp3 ke folder website terlebih dahulu, lalu coba lagi.");
     }
   });
 }
@@ -97,6 +101,6 @@ if ($("rsvpForm")) {
       `Kehadiran: ${encodeURIComponent(attendance)}%0A` +
       `Jumlah tamu: ${encodeURIComponent(guestCount)}%0A` +
       `Ucapan: ${encodeURIComponent(message || "-")}`;
-    window.open(`https://wa.me{WEDDING.whatsappNumber}?text=${text}`, "_blank", "noopener");
+    window.open(`https://wa.me/${WEDDING.whatsappNumber}?text=${text}`, "_blank", "noopener");
   });
 }
