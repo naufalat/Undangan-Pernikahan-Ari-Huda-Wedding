@@ -14,9 +14,15 @@ const WEDDING = {
 
 const $ = (id) => document.getElementById(id);
 
-// Validasi elemen agar tidak membuat script crash jika ID tidak ditemukan di HTML
-if ($("coverBride")) $("coverBride").textContent = WEDDING.bride;
-if ($("coverGroom")) $("coverGroom").textContent = WEDDING.groom;
+// Mengatur nama mempelai dan inisial navbar
+if ($("coverBride")) {
+  $("coverBride").textContent = WEDDING.bride;
+}
+
+if ($("coverGroom")) {
+  $("coverGroom").textContent = WEDDING.groom;
+}
+
 if ($("brandNames")) {
   $("brandNames").innerHTML = 'A <span>&amp;</span> H';
 }
