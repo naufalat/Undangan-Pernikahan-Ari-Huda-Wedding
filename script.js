@@ -17,7 +17,9 @@ const $ = (id) => document.getElementById(id);
 // Validasi elemen agar tidak membuat script crash jika ID tidak ditemukan di HTML
 if ($("coverBride")) $("coverBride").textContent = WEDDING.bride;
 if ($("coverGroom")) $("coverGroom").textContent = WEDDING.groom;
-if ($("brandNames")) $("brandNames").innerHTML = `${WEDDING.bride.charAt(0)} <span>&</span> ${WEDDING.groom.charAt(0)}`;
+if ($("brandNames")) {
+  $("brandNames").innerHTML = 'A <span>&amp;</span> H';
+}
 if ($("coverDate")) $("coverDate").textContent = WEDDING.dateText;
 if ($("heroDate")) $("heroDate").textContent = WEDDING.dateText;
 if ($("akadDate")) $("akadDate").textContent = WEDDING.dateText;
