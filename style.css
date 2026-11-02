@@ -50,3 +50,21 @@
   margin: 20px auto 20px !important;
 }
 
+.family-invitation {
+  text-align: center;
+  margin-top: 55px;
+  padding: 20px;
+}
+
+.family-invitation .eyebrow {
+  font-size: 11px;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+.family-invitation h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  font-weight: 400;
+  margin: 0;
+}
