@@ -97,18 +97,50 @@ if ($("musicToggle")) {
 }
 
 // Demo RSVP: opens WhatsApp with a prefilled message. No database is used.
+
+// ========================================
+// RSVP WHATSAPP OTOMATIS
+// ========================================
+
 if ($("rsvpForm")) {
   $("rsvpForm").addEventListener("submit", (event) => {
     event.preventDefault();
+
     const name = $("rsvpName").value.trim();
     const attendance = $("attendance").value;
     const guestCount = $("guestCount").value;
     const message = $("message").value.trim();
-    const text = `RSVP Pernikahan ${WEDDING.bride} & ${WEDDING.groom}%0A` +
-      `Nama: ${encodeURIComponent(name)}%0A` +
-      `Kehadiran: ${encodeURIComponent(attendance)}%0A` +
-      `Jumlah tamu: ${encodeURIComponent(guestCount)}%0A` +
-      `Ucapan: ${encodeURIComponent(message || "-")}`;
-    window.open(`https://wa.me/${WEDDING.whatsappNumber}?text=${text}`, "_blank", "noopener");
+
+    if (!name || !attendance) {
+      alert("Mohon lengkapi nama dan konfirmasi kehadiran.");
+      return;
+    }
+
+    const whatsappMessage = `
+Assalamu'alaikum Wr. Wb.
+
+Dengan hormat, saya ingin menyampaikan konfirmasi kehadiran pada acara pernikahan:
+
+*${WEDDING.bride} & ${WEDDING.groom}*
+
+*KONFIRMASI KEHADIRAN*
+
+Nama: ${name}
+Kehadiran: ${attendance}
+Jumlah tamu: ${guestCount} orang
+
+*Ucapan & Doa:*
+${message || "Tidak ada ucapan tambahan."}
+
+Terima kasih atas undangannya.
+
+Wassalamu'alaikum Wr. Wb.
+    `.trim();
+
+    const whatsappURL =
+      `https://wa.me/${WEDDING.whatsappNumber}?text=` +
+      encodeURIComponent(whatsappMessage);
+
+    window.open(whatsappURL, "_blank", "noopener");
   });
 }
