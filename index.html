@@ -129,15 +129,67 @@
       </div>
     </section>
 
-    <section class="rsvp section" id="rsvp">
-      <p class="eyebrow">KINDLY RSVP</p><h2>Will you join us?</h2><p>Mohon konfirmasi kehadiran Anda melalui formulir berikut.</p>
-      <form id="rsvpForm">
-        <label for="rsvpName">Nama</label><input id="rsvpName" name="name" placeholder="Nama lengkap" required>
-        <label for="attendance">Konfirmasi kehadiran</label><select id="attendance" name="attendance" required><option value="">Pilih jawaban</option><option>Hadir</option><option>Belum dapat hadir</option></select>
-        <label for="guestCount">Jumlah tamu</label><select id="guestCount" name="guestCount"><option>1</option><option>2</option><option>3</option><option>4</option></select>
-        <label for="message">Ucapan & doa (opsional)</label><textarea id="message" name="message" rows="3" placeholder="Tuliskan doa terbaikmu..."></textarea>
-        <button class="button button-dark" type="submit">Kirim Konfirmasi</button>
-      </form>
+    
+<section class="rsvp section" id="rsvp">
+  <p class="eyebrow">KINDLY RSVP</p>
+  <h2>Will you join us?</h2>
+  <p>Mohon konfirmasi kehadiran dan tuliskan doa terbaik Anda untuk kami.</p>
+
+  <form id="rsvpForm">
+    <label for="rsvpName">Nama</label>
+    <input
+      id="rsvpName"
+      name="nama"
+      type="text"
+      placeholder="Nama lengkap"
+      required
+    >
+
+    <label for="attendance">Konfirmasi kehadiran</label>
+    <select id="attendance" name="kehadiran" required>
+      <option value="">Pilih jawaban</option>
+      <option value="Hadir">Hadir</option>
+      <option value="Tidak Hadir">Tidak Hadir</option>
+    </select>
+
+    <label for="guestCount">Jumlah tamu</label>
+    <select id="guestCount" name="jumlahTamu" required>
+      <option value="1">1 orang</option>
+      <option value="2">2 orang</option>
+      <option value="3">3 orang</option>
+      <option value="4">4 orang</option>
+    </select>
+
+    <label for="message">Ucapan & doa</label>
+    <textarea
+      id="message"
+      name="ucapan"
+      rows="4"
+      placeholder="Tuliskan doa terbaikmu..."
+      required
+    ></textarea>
+
+    <button class="button button-dark" id="submitRSVP" type="submit">
+      Kirim Ucapan
+    </button>
+
+    <p id="rsvpStatus" class="form-note" role="status" aria-live="polite"></p>
+  </form>
+
+  <!-- REKAP WEDDING WISHES -->
+  <div class="wishes-container">
+    <div class="wishes-heading">
+      <p class="eyebrow">FROM OUR GUESTS</p>
+      <h3>Wedding Wishes</h3>
+      <p>Doa dan ucapan hangat dari keluarga serta sahabat.</p>
+    </div>
+
+    <div id="wishesList" class="wishes-list">
+      <p class="wishes-loading">Memuat ucapan...</p>
+    </div>
+  </div>
+</section>
+
     </section>
 
     <section class="closing section">
