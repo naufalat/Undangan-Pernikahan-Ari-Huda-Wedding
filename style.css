@@ -85,3 +85,99 @@
   color: var(--muted);
   margin: 0;
 }
+
+
+/* ========================================
+   WEDDING WISHES
+======================================== */
+
+.wishes-container {
+  max-width: 680px;
+  margin: 75px auto 0;
+  text-align: center;
+}
+
+.wishes-heading {
+  margin-bottom: 30px;
+}
+
+.wishes-heading h3 {
+  font: 400 clamp(2rem, 4vw, 3rem) var(--serif);
+  margin: 10px 0;
+  color: var(--ink);
+}
+
+.wishes-heading > p:last-child {
+  color: var(--muted);
+  font-size: .85rem;
+}
+
+.wishes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+.wish-card {
+  background: #f9f7f2;
+  border: 1px solid var(--line);
+  padding: 20px 24px;
+  text-align: left;
+}
+
+.wish-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.wish-card-name {
+  font: 500 1.15rem var(--serif);
+  color: var(--ink);
+}
+
+.wish-card-meta {
+  font-size: .7rem;
+  color: var(--sage);
+}
+
+.wish-card-message {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: .88rem;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.wishes-loading,
+.wishes-empty {
+  text-align: center;
+  color: var(--muted);
+  font-size: .85rem;
+  padding: 25px;
+  border: 1px solid var(--line);
+}
+
+.rsvp .form-note {
+  min-height: 20px;
+  margin-top: 5px;
+}
+
+#submitRSVP:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+@media(max-width:760px) {
+  .wishes-container {
+    margin-top: 55px;
+  }
+
+  .wish-card {
+    padding: 17px;
+  }
+}
+
